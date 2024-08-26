@@ -1,0 +1,27 @@
+.login-card-body{
+    background-color: rgb(227, 228, 228);
+}
+.card {
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(210, 232, 199, 0.1);
+    background-color: #c8d0da;
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+.card-title {
+    margin-bottom: 1.5rem;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+

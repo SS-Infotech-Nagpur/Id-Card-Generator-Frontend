@@ -1,0 +1,262 @@
+/* Base styles for the form container */
+
+
+/* Styles for the preview container */
+.preview {
+
+  color: black;
+  width: 100%; /* Full width initially */
+  max-width: 270px !important; /* Maximum width for the preview card */
+  text-align: center;
+  margin: 0px auto; /* Center the preview */
+  line-height: 0.6rem;
+  background-color: white;
+  position: relative;
+  
+}
+
+.preview .schoolLogo {
+  border-radius: 50%;
+  width: 45px; /* Set a standard size for the logo */
+  height: 45px;
+  position: absolute;
+  left: 0.5rem;
+  top: 38%;
+}
+
+/* Styles for headings and text */
+.preview #schoolInit {
+  font-size: 1rem !important;
+  line-height: 1rem;
+  color: rgb(0, 0, 0) !important;
+  padding-bottom: 0.2rem;
+
+  
+}
+
+.preview h4 {
+  font-size: 1.1rem !important;
+  color: black; /* Slightly lighter color for subheading */
+  line-height: 1rem !important;
+  margin-top: -0.8rem;
+  margin-left: 1.2rem;
+  margin-bottom: -0.3rem;
+  padding: 5px;
+  
+}
+.preview .schoolInit{
+  color: black;
+  margin-bottom: 0.8rem;
+}
+#schoolAdd{
+  position: relative;
+  left: 7%;
+}
+.preview p {
+  font-size: 0.9rem;
+  margin: 5px 0 !important; /* Space between text lines */
+  color: black; /* Lighter text color */
+  line-height: 0.7rem;
+}
+/* Styles for large screens */
+@media (min-width: 992px) {
+  .form {
+      max-width: 100vw; /* Original max-width for large screens */
+  }
+
+  .preview {
+    max-width: 350px; /* Slightly smaller card on large screens */
+    padding: 15px;
+  }
+
+  .preview img {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .preview h1 {
+    font-size: 1.4rem;
+  }
+
+  .preview h4 {
+    font-size: 1.1rem;
+  }
+
+  .preview p {
+    font-size: 0.8rem;
+  }
+ 
+}
+
+/* Styles for medium screens */
+@media (max-width: 991px) and (min-width: 768px) {
+  .form {
+      max-width: 100vw; /* Adjust max-width for medium screens */
+      padding: 1.5rem; /* Adjust padding */
+  }
+
+  .preview {
+    max-width: 300px; /* Adjust width for medium screens */
+    height: auto;
+    padding: 1rem;
+   
+  }
+
+  .preview img {
+    width: 55px;
+    height: 55px;
+   
+  }
+
+  .preview h1 {
+    font-size: 1.3rem;
+  }
+
+  .preview h4 {
+    font-size: 1rem;
+  }
+
+  .preview p {
+    font-size: 0.8rem;
+  }
+}
+
+/* Styles for small screens */
+@media (max-width: 767px) and (min-width: 576px) {
+  .form {
+      max-width: 90vw; /* Adjust max-width for small screens */
+      padding: 1rem; /* Adjust padding */
+  }
+
+  .preview {
+    max-width: 40vw; /* Adjust width for small screens */
+    height: auto;
+    padding: 1rem;
+
+
+  }
+
+  .preview img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .preview h1 {
+    font-size: 1.2rem;
+  }
+
+  .preview h4 {
+    font-size: 0.9rem;
+  }
+
+  .preview p {
+    font-size: 0.75rem;
+  }
+}
+
+/* Styles for extra-small screens */
+@media (max-width: 575px) {
+  .form {
+      max-width: 100vw; /* Full width for extra-small screens */
+      padding: 0.5rem; /* Reduce padding */
+  }
+
+  .preview {
+    max-width: 50vw; /* Full width for extra-small screens */
+    height: auto;       
+  }
+
+
+  .preview h1 {
+    font-size: 1rem;
+  }
+
+  .preview h4 {
+    font-size: 0.8rem;
+  }
+
+  .preview p {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 601px){
+  .preview {
+    height: 90px ;
+    max-width: 320px !important;
+  }
+  .preview h1 {
+    font-size: 0.7rem;
+  }
+
+  .preview h4 {
+    font-size: 0.5rem;
+  }
+
+  .preview p {
+    font-size: 0.85rem !important;
+  }
+}
+@media (max-width: 470px){
+  .preview{
+max-width: 500px !important;
+  }
+ 
+  .preview h4 {
+    font-size: 1rem !important;
+  }
+
+  .preview p {
+    font-size: 0.77rem !important;
+  }
+  .preview img{
+    height: 35px !important;
+    width: 35px !important;
+    margin-top: 0.4rem;
+  }
+}
+@media (max-width: 415px){
+   .preview{
+   max-width: 250px !important;
+
+   }
+   .preview h4 {
+    font-size: 1rem !important;
+  }
+
+  .preview p {
+    font-size: 0.67rem !important;
+  }
+  .preview img{
+    height: 25px !important;
+    width: 25px !important;
+    margin-top: 0.6rem;
+  }
+}
+
+/* Responsive image styling */
+.schoolLogo {
+  max-width: 60px;
+  max-height: 100px;
+  /* Center image horizontally */
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Responsive form controls */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="file"],
+button {
+  display: inline;
+  margin-bottom: 1rem; /* Add space between form controls */
+}
+
+/* Responsive button styling */
+button {
+  font-size: 1rem; /* Adjust font size */
+  padding: 0.5rem; /* Adjust padding */
+  margin: 0.5rem 0; /* Space between buttons */
+}

@@ -1,0 +1,151 @@
+/* General form styling */
+.form {
+    margin: auto;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #EDE7F6;
+    color: #6a14d3;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+#school-form label{
+  position: relative;
+  right: 20%;
+  margin-bottom: 0.4rem;
+}
+#school-form{
+    position: relative;
+    left: 28%;
+ 
+}
+#school-form input{
+ border: none;
+ outline: none;
+ position: relative;
+ right: 20%;
+ width: 61vw;
+}
+/* Dropdown styling */
+.dropdown-menu {
+    position: relative;
+    width: 75%;
+    max-height: 200px;
+    overflow-y: auto;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    margin: auto;
+}
+/* Dropdown input border styling */
+.dropdown-menu input {
+    position: relative;
+    left: 25%;
+    border: 1px solid black; /* Adding the black border */
+}
+
+.dropdown{
+   position: relative;
+   right: 34%;
+   text-align: center;
+   width: 81vw;
+}
+
+
+/* Identity card frame styling */
+.card-frame {
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    background-color: white;
+    max-width: 270px;
+    margin: auto;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);    
+    
+}
+.card-frame .school-preview{
+    background-color: white;
+    border: none;
+    
+    
+}
+.studentpreview .studentDetails{
+position: absolute;
+left: 50%;
+   
+}
+.studentpreview .studentDetails .colon{
+    margin-left: 5px;
+}
+/* School preview styling */
+.preview, .studentpreview {
+    flex: 1;
+    padding-left: 10px;
+    line-height: 0.6rem;
+}
+
+.preview h4 {
+    font-size: 16px;
+    font-weight: bold;
+   line-height: 0.4rem;
+
+}
+
+.preview h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: black;
+}
+
+.preview p, .studentpreview p {
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: black;
+    margin-left: 1rem;
+}
+
+.preview .add_num{
+    line-height: 0.9rem;
+}
+.preview .clg_name{
+    font-size: 1.1rem;
+    line-height: 1rem;
+    margin-bottom: 0.1rem;
+
+}
+.preview #schoolInit{
+    margin-bottom: -0.1rem !important;
+}
+#school-form .last-btn{
+    position: relative;
+    right: 20%;
+}
+#hr{
+    margin-bottom: 0.5rem;
+    margin-top: -0.5rem;
+}
+.schoolLogo, .studentpreview img {
+    display: block;
+    margin-top: -1rem;
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin: auto;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+    .card-frame {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .preview, .studentpreview {
+        width: 100%;
+        padding: 0;
+        margin-bottom: 10px;
+    }
+    #school-form #stdHeading{
+        position: relative;
+        right: 3rem;
+    }
+}

@@ -1,0 +1,68 @@
+/* src/Modal/Modal.css */
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1050; /* Bootstrap modals use 1050 */
+  }
+  
+  .modal-dialog {
+    max-width: 500px; /* Adjust the width as needed */
+    margin: 1.75rem auto; /* Center the modal vertically and horizontally */
+  }
+  
+  .modal-content {
+    background-color: white;
+    border-radius: 0.3rem;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+    padding: 1.5rem;
+  }
+  
+  .modal-body {
+    padding: 1.5rem;
+  }
+  
+  .modal-body button {
+    margin: 0.5rem;
+  }
+  #close{
+    margin-left: 75%;
+  }
+  .btn-primary {
+    background-color: #007bff;
+    border: none;
+  }
+  
+  .btn-success {
+    background-color: #28a745;
+    border: none;
+  }
+  
+  .btn-danger {
+    background-color: #dc3545;
+    border: none;
+    color: white;
+  }
+  
+  .close-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: transparent;
+    border: none;
+    color: #000;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+  .close-btn:hover {
+    color: #dc3545;
+  }
+  
