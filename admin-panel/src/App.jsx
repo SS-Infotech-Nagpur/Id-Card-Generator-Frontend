@@ -5,7 +5,7 @@ import SelectPanel from "./components/SelectPanel";
 import SchoolForm from "./components/SchoolForm";
 import StudentForm from "./components/StudentForm";
 import PageNotFound from "./components/PageNotFound";
-
+//git check 2
 function App() {
   return (
     <>
