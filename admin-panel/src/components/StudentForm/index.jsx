@@ -78,8 +78,6 @@ const StudentForm = () => {
     axios
       .get(`http://192.168.0.139:8080/school/id/${schoolId}`)
       .then((response) => {
-        // Log the detailed school information to the console
-        console.log("School Details:", response.data);
         setSelectedSchoolDetail(response.data);
       })
       .catch((error) => {
@@ -140,7 +138,6 @@ const StudentForm = () => {
   const navigate = useNavigate();
 
   const back = () =>{
-    console.log("back")
     navigate(-1)
   }
 
