@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./StudentForm.css";
 import WebCam from "../Webcam/WebCam";
+import { useNavigate } from "react-router-dom";
+import { BiArrowBack } from "react-icons/bi";
 
 const StudentForm = () => {
   const [search, setSearch] = useState("");
@@ -23,9 +25,11 @@ const StudentForm = () => {
     address: "",
     photo: null,
     idCardPhoto: null,
+
   });
   const [selectedSchoolDetail, setSelectedSchoolDetail] = useState({});
 
+ 
 
   useEffect(() => {
     axios
@@ -133,7 +137,16 @@ const StudentForm = () => {
     setIsPreview(true);
   };
 
+  const navigate = useNavigate();
+
+  const back = () =>{
+    console.log("back")
+    navigate(-1)
+  }
+
   return (
+    <>
+     <button className='btn btn-outline-primary mx-4 px-4 fs-5' onClick={back}><BiArrowBack /></button>
     <div className="form w-75">
       <form id="school-form">
         <h2 id="stdHeading">Student Information</h2>
@@ -300,7 +313,7 @@ const StudentForm = () => {
           id="idCardPhoto"
         />
         <br />
-        label
+         <label htmlFor="">Capture Image</label>
         <div style={{
             position: "relative",
             right: "20%",
@@ -427,6 +440,7 @@ const StudentForm = () => {
         </div>
       )}
     </div>
+    </>
   );
 };
 
