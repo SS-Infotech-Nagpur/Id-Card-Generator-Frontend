@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./StudentForm.css";
 import WebCam from "../Webcam/WebCam";
+import html2canvas from "html2canvas";
 
 const StudentForm = () => {
   const [search, setSearch] = useState("");
@@ -26,12 +27,28 @@ const StudentForm = () => {
   });
   const [selectedSchoolDetail, setSelectedSchoolDetail] = useState({});
 
+  const downloadCard = () => {
+    const cardFrame = document.querySelector(".card-frame");
+
+    if (cardFrame) {
+      html2canvas(cardFrame).then((canvas) => {
+        const dataURL = canvas.toDataURL("image/jpeg");
+        const link = document.createElement("a");
+        link.href = dataURL;
+        link.download = "student_card.jpg";
+        link.click();
+      }).catch((error) => {
+        console.error("Error capturing the card:", error);
+      });
+    } else {
+      console.log("Card frame not found");
+    }
+  };
 
   useEffect(() => {
     axios
       .get("http://192.168.0.139:8080/school/list")
       .then((response) => {
-        // Assuming the API response is an array of school objects with `schoolName` and `schoolId` properties
         const schools = response.data.map((item) => ({
           schoolName: item.schoolName,
           schoolId: item.schoolId,
@@ -45,7 +62,6 @@ const StudentForm = () => {
   }, []);
 
   useEffect(() => {
-    // Filter options based on the search term
     setFilteredOptions(
       options.filter((option) =>
         option.schoolName.toLowerCase().includes(search.toLowerCase())
@@ -66,7 +82,6 @@ const StudentForm = () => {
     setSelectedSchoolId(schoolId);
     setFormData({ ...formData, schoolName: schoolName });
     setIsOpen(false);
-    // Fetch detailed information about the selected school
     fetchSchoolDetails(schoolId);
   };
 
@@ -74,7 +89,6 @@ const StudentForm = () => {
     axios
       .get(`http://192.168.0.139:8080/school/id/${schoolId}`)
       .then((response) => {
-        // Log the detailed school information to the console
         console.log("School Details:", response.data);
         setSelectedSchoolDetail(response.data);
       })
@@ -92,8 +106,6 @@ const StudentForm = () => {
   };
 
   const handleSubmit = async () => {
-
-    // Simple validation check
     for (let key in formData) {
       if (formData[key] === "" && key !== "photo" && key !== "idCardPhoto") {
         alert(`${key} is required.`);
@@ -101,11 +113,9 @@ const StudentForm = () => {
       }
     }
 
-    // Proceed with form submission
     const data = new FormData();
     for (let key in formData) {
       if (formData[key]) {
-        // Ensure that only non-empty fields are appended
         data.append(key, formData[key]);
       }
     }
@@ -277,7 +287,7 @@ const StudentForm = () => {
           required
         />
         <br />
-        <label htmlFor="template">Template</label>
+        <label htmlFor="photo">Photo</label>
         <br />
         <input
           type="file"
@@ -285,30 +295,25 @@ const StudentForm = () => {
           onChange={handleChange}
           aria-label="Photo"
           className="btn btn-light"
-          id="template"
+          id="photo"
           required
         />
         <br />
-        <label htmlFor="idCardPhoto">Id card photo</label> 
+        <label htmlFor="idCardPhoto">ID Card Photo</label>
         <br />
         <input
           type="file"
           name="idCardPhoto"
           onChange={handleChange}
-          aria-label="Student Photo"
+          aria-label="ID Card Photo"
           className="btn btn-light"
           id="idCardPhoto"
         />
         <br />
-        label
-        <div style={{
-            position: "relative",
-            right: "20%",
-          }}
-        >
-            <WebCam getImage={getImage} />
+        <div style={{ position: "relative", right: "20%" }}>
+          <WebCam getImage={getImage} />
         </div>
-        
+
         <button
           type="button"
           onClick={checkPreview}
@@ -351,29 +356,19 @@ const StudentForm = () => {
           </div>
           <hr id="hr" />
           <div className="studentpreview">
-
-           
-            
-            {formData.idCardPhoto ?
+            {formData.idCardPhoto ? (
               <img
                 src={URL.createObjectURL(formData.idCardPhoto)}
                 alt="ID Card"
-                style={{
-                  width: "100px",
-                  height: "100px",
-                  marginBottom: "1.5rem",
-                }}
-              /> : <img
-              src={image}
-              alt="ID Card"
-              style={{
-                width: "100px",
-                height: "100px",
-                marginBottom: "1.5rem",
-              }}
-            />
-            }
-            
+                style={{ width: "100px", height: "100px", marginBottom: "1.5rem" }}
+              />
+            ) : (
+              <img
+                src={image}
+                alt="ID Card"
+                style={{ width: "100px", height: "100px", marginBottom: "1.5rem" }}
+              />
+            )}
             <p>
               <strong>Student Name </strong>{" "}
               <span className="studentDetails">
@@ -396,7 +391,7 @@ const StudentForm = () => {
               </span>
             </p>
             <p>
-              <strong>Date Of Birth </strong>
+              <strong>Date Of Birth </strong>{" "}
               <span className="studentDetails">
                 {" "}
                 : <span className="colon">{formData.dateOfBirth}</span>
@@ -405,7 +400,7 @@ const StudentForm = () => {
             <p>
               <strong>Blood Group </strong>{" "}
               <span className="studentDetails">
-                {" "} 
+                {" "}
                 : <span className="colon">{formData.bloodGroup}</span>
               </span>
             </p>
@@ -425,6 +420,12 @@ const StudentForm = () => {
             </p>
           </div>
         </div>
+      )}
+
+      {isPreview && (
+        <button className="btn btn-success download" onClick={downloadCard}>
+          Download
+        </button>
       )}
     </div>
   );
