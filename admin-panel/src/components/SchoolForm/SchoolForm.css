@@ -20,8 +20,8 @@
   width: 45px; /* Set a standard size for the logo */
   height: 45px;
   position: absolute;
-  left: 0.5rem;
-  top: 38%;
+  left: 0.3rem;
+  top: 25%;
 }
 
 /* Styles for headings and text */
@@ -29,7 +29,7 @@
   font-size: 1rem !important;
   line-height: 1rem;
   color: rgb(0, 0, 0) !important;
-  padding-bottom: 0.2rem;
+  padding-bottom: 0.5rem;
 
   
 }

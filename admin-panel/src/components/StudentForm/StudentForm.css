@@ -68,10 +68,11 @@
 }
 .studentpreview .studentDetails{
 position: absolute;
-left: 49%;   
+left: 50%;
+   
 }
 .studentpreview .studentDetails .colon{
-    margin-left: 3px;
+    margin-left: 5px;
 }
 /* School preview styling */
 .preview, .studentpreview {
@@ -129,39 +130,6 @@ left: 49%;
     height: auto;
     border-radius: 5px;
     margin: auto;
-}
-.download{
-    position: relative;
-    left: 46%;
-    margin-top: 1rem;
-}
-#colon1{
-  width: 127px;
-   position: relative;
-   top: -0.7rem;
-   left: 0.45rem;
-   line-height: 0.8rem;
-}
-.studentDetails #colonAddress {
-    display:block;
-    max-width: 125px !important;
-    position: relative;
-     left: 0.4rem;
-     bottom: 0.55rem;
-     line-height: 0.8rem;
-     
-
- }
-#previewStudentName{
-    padding-bottom: 0.5rem;
-    
-}
-.lessPadding{
-    padding-bottom: 0rem !important;
-}
-
-.padding #colon1{
-    line-height: 0.8rem; 
 }
 
 /* Mobile responsiveness */
