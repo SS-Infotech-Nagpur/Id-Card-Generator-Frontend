@@ -33,13 +33,10 @@ const Login = () => {
     
      
   if(formData.userName === userData.userName && formData.password === userData.password){
-    console.log("login successful")
-    console.log(formData);
     navigate("/schoolForm")
   }
   else{
     setError("username and password not match")
-    console.log("username and password not match")
   }
   
 
