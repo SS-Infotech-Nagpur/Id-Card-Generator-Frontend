@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./SchoolForm.css";
+import { BiArrowBack } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
 
 const SchoolForm = () => {
   const [formData, setFormData] = useState({
@@ -72,9 +74,15 @@ const SchoolForm = () => {
     setIsPreview(true);
   };
 
+  const navigate = useNavigate();
+
+  const back = () =>{
+    navigate(-1)
+  }
+
   return (
     <>
-  
+     <button className='btn btn-outline-primary mx-4 px-4 fs-5' onClick={back}><BiArrowBack /></button>
     <div className="container w-75 mt-5 form">
       <h2>School Registration Form</h2>
       <form onSubmit={handleSubmit}>

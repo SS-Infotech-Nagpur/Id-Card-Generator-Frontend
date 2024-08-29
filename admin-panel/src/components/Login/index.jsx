@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import '../Login/Style.css';
 import { useNavigate } from 'react-router-dom';
+import { BiArrowBack } from "react-icons/bi";
 
 const Login = () => {
 
     const navigate = useNavigate();
+    const back = () =>{
+        navigate(-1)
+      }
 
     const userData={
         userName:"aamil",
@@ -42,6 +46,8 @@ const Login = () => {
     }
 
   return (
+    <>
+    <button className='btn btn-outline-primary mx-4 px-4 fs-5' onClick={back}><BiArrowBack /></button>
         <div className="login-card-body">
         <div className="row justify-content-center align-items-center min-vh-100">
             <div className="col-md-4 col-sm-6">
@@ -67,7 +73,7 @@ const Login = () => {
             </div>
         </div>
     </div>
-
+    </>
   )
 }
 

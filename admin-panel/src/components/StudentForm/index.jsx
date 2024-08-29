@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState , useNavigate } from "react";
 import axios from "axios";
 import "./StudentForm.css";
 import WebCam from "../Webcam/WebCam";
-import html2canvas from "html2canvas";
 
 const StudentForm = () => {
   const [search, setSearch] = useState("");
@@ -24,26 +23,10 @@ const StudentForm = () => {
     address: "",
     photo: null,
     idCardPhoto: null,
+
   });
   const [selectedSchoolDetail, setSelectedSchoolDetail] = useState({});
 
-  const downloadCard = () => {
-    const cardFrame = document.querySelector(".card-frame");
-
-    if (cardFrame) {
-      html2canvas(cardFrame).then((canvas) => {
-        const dataURL = canvas.toDataURL("image/jpeg");
-        const link = document.createElement("a");
-        link.href = dataURL;
-        link.download = "student_card.jpg";
-        link.click();
-      }).catch((error) => {
-        console.error("Error capturing the card:", error);
-      });
-    } else {
-      console.log("Card frame not found");
-    }
-  };
 
   useEffect(() => {
     axios
@@ -89,6 +72,7 @@ const StudentForm = () => {
     axios
       .get(`http://192.168.0.139:8080/school/id/${schoolId}`)
       .then((response) => {
+        // Log the detailed school information to the console
         console.log("School Details:", response.data);
         setSelectedSchoolDetail(response.data);
       })
@@ -143,7 +127,15 @@ const StudentForm = () => {
     setIsPreview(true);
   };
 
+  const navigate = useNavigate();
+
+  const back = () =>{
+    navigate(-1)
+  }
+
   return (
+    <>
+     <button className='btn btn-outline-primary mx-4 px-4 fs-5' onClick={back}><BiArrowBack /></button>
     <div className="form w-75">
       <form id="school-form">
         <h2 id="stdHeading">Student Information</h2>
@@ -310,8 +302,13 @@ const StudentForm = () => {
           id="idCardPhoto"
         />
         <br />
-        <div style={{ position: "relative", right: "20%" }}>
-          <WebCam getImage={getImage} />
+        label
+        <div style={{
+            position: "relative",
+            right: "20%",
+          }}
+        >
+            <WebCam getImage={getImage} />
         </div>
 
         <button
@@ -428,6 +425,7 @@ const StudentForm = () => {
         </button>
       )}
     </div>
+    </>
   );
 };
 
