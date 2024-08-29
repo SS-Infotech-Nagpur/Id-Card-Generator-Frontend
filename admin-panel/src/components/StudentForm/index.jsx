@@ -26,6 +26,7 @@ const StudentForm = () => {
     address: "",
     photo: null,
     idCardPhoto: null,
+    // code updated...
   });
   const [selectedSchoolDetail, setSelectedSchoolDetail] = useState({});
 
