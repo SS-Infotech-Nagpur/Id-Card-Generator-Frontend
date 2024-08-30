@@ -14,7 +14,8 @@ const StudentForm = () => {
   const [selectedSchool, setSelectedSchool] = useState("");
   const [selectedSchoolId, setSelectedSchoolId] = useState(null);
   const [isPreview, setIsPreview] = useState(false);
-  const [image, getImage] = useState(null);
+  const [image, setImage] = useState(null); // For uploaded photo
+  const [webCamImage, setWebCamImage] = useState(null); // For webcam image
   const [formData, setFormData] = useState({
     schoolName: "",
     studentName: "",
@@ -26,9 +27,22 @@ const StudentForm = () => {
     address: "",
     photo: null,
     idCardPhoto: null,
-    // code updated 2...
   });
   const [selectedSchoolDetail, setSelectedSchoolDetail] = useState({});
+  const [studentLength, setStudentLength] = useState("");
+
+  const handleWebCamCapture = (image) => {
+    // Ensure that the image is a Blob or File
+    if (typeof image === 'string') {
+      // Convert data URL to Blob
+      fetch(image)
+        .then(res => res.blob())
+        .then(blob => setWebCamImage(blob))
+        .catch(err => console.error('Error converting data URL to Blob:', err));
+    } else {
+      setWebCamImage(image);
+    }
+  };
 
   useEffect(() => {
     axios
@@ -90,6 +104,7 @@ const StudentForm = () => {
   };
 
   const handleSubmit = async () => {
+    // Check if all required fields are filled
     for (let key in formData) {
       if (formData[key] === "" && key !== "photo" && key !== "idCardPhoto") {
         alert(`${key} is required.`);
@@ -102,6 +117,12 @@ const StudentForm = () => {
       if (formData[key]) {
         data.append(key, formData[key]);
       }
+    }
+
+    // Ensure the 'photo' field is added to FormData
+    if (webCamImage) {
+      // Append the webcam image if it is a Blob or File
+      data.append("photo", webCamImage, "webcam_photo.jpg"); // Adjust file name as needed
     }
 
     try {
@@ -134,33 +155,32 @@ const StudentForm = () => {
   };
 
   const downloadPreview = () => {
-    const previewElement = document.querySelector('.card-frame');
+    const previewElement = document.querySelector(".card-frame");
 
     if (previewElement) {
       html2canvas(previewElement).then((canvas) => {
-        const link = document.createElement('a');
-        link.href = canvas.toDataURL('image/jpeg');
-        link.download = 'student-preview.jpg';
+        const link = document.createElement("a");
+        link.href = canvas.toDataURL("image/jpeg");
+        link.download = "student-preview.jpg";
         link.click();
       });
     }
   };
 
-  const [studentLength,setStudentLength] = useState("");
-  useEffect(()=>{
-    const handleStudentName=()=>{
+  useEffect(() => {
+    const handleStudentName = () => {
       const length = formData.studentName.length;
-      
       const getLength = length > 20 ? "padding" : "lessPadding";
-
-      setStudentLength(getLength)
-    }
+      setStudentLength(getLength);
+    };
     handleStudentName();
-  },[formData.studentName])
+  }, [formData.studentName]);
 
   return (
     <>
-      <button className='btn btn-outline-primary mx-4 px-4 fs-5' onClick={back}><BiArrowBack /></button>
+      <button className="btn btn-outline-primary mx-4 px-4 fs-5" onClick={back}>
+        <BiArrowBack />
+      </button>
       <div className="form w-75">
         <form id="school-form">
           <h2 id="stdHeading">Student Information</h2>
@@ -285,15 +305,14 @@ const StudentForm = () => {
             value={formData.mobileNumber}
             onChange={handleChange}
             aria-label="Mobile Number"
-            className="rounded mb-3 p-1"
+            className="rounded p-1"
             id="number"
             required
           />
           <br />
           <label htmlFor="address">Address</label>
           <br />
-          <input
-            type="text"
+          <textarea
             name="address"
             placeholder="Address"
             value={formData.address}
@@ -304,50 +323,42 @@ const StudentForm = () => {
             required
           />
           <br />
-          <label htmlFor="template"> Upload Id Card Photo</label>
+          <label htmlFor="template">Student Photo</label>
           <br />
           <input
             type="file"
             name="photo"
+            accept="image/*"
             onChange={handleChange}
-            aria-label="Photo"
-            className="btn btn-light"
             id="template"
-            required
           />
+
           <br />
-          <label htmlFor="idCardPhoto">Student Photo</label>
+          <label htmlFor="idCard">ID Card Photo</label>
           <br />
           <input
             type="file"
             name="idCardPhoto"
+            accept="image/*"
             onChange={handleChange}
-            aria-label="Student Photo"
-            className="btn btn-light"
-            id="idCardPhoto"
+            id="idCard"
           />
           <br />
-          <label htmlFor="">Capture Image</label>
-          <div style={{
-            position: "relative",
-            right: "20%",
-          }}>
-            <WebCam getImage={getImage} />
-          </div>
-
+          <WebCam getImage={handleWebCamCapture} />
+          <br />
           <button
             type="button"
+            className="btn btn-primary my-3"
             onClick={checkPreview}
-            className="btn btn-primary last-btn"
           >
             Preview
           </button>
           <button
             type="button"
+            className="btn btn-success my-3"
             onClick={handleSubmit}
-            className="btn btn-success mx-4 last-btn"
           >
-            Send
+            Submit
           </button>
         </form>
 
@@ -365,7 +376,9 @@ const StudentForm = () => {
                 )}
                 <p className="website">{selectedSchoolDetail.schoolWebsite}</p>
                 {selectedSchoolDetail.schoolEmail && (
-                  <p className="email">Email: {selectedSchoolDetail.schoolEmail}</p>
+                  <p className="email">
+                    Email: {selectedSchoolDetail.schoolEmail}
+                  </p>
                 )}
                 {selectedSchoolDetail.schoolLogo && (
                   <img
@@ -378,32 +391,35 @@ const StudentForm = () => {
               </div>
               <hr id="hr" />
               <div className="studentpreview">
-                {formData.idCardPhoto ?
+                {formData.photo ? (
                   <img
-                    src={URL.createObjectURL(formData.idCardPhoto)}
-                    alt="ID Card"
-                    style={{
-                      width: "100px",
-                      height: "100px",
-                      marginBottom: "1.5rem",
-                    }}
-                  /> : <img
-                    src={image}
-                    alt="ID Card"
+                    src={URL.createObjectURL(formData.photo)}
+                    alt="Student Photo"
                     style={{
                       width: "100px",
                       height: "100px",
                       marginBottom: "1.5rem",
                     }}
                   />
-                }
-                <p id="previewStudentName"
-                 className={`${studentLength}`}
-                >
+                ) : webCamImage ? (
+                  <img
+                    src={URL.createObjectURL(webCamImage)}
+                    alt="Webcam Image"
+                    style={{
+                      width: "100px",
+                      height: "100px",
+                      marginBottom: "1.5rem",
+                    }}
+                  />
+                ) : null}
+                <p id="previewStudentName" className={`${studentLength}`}>
                   <strong>Student Name </strong>{" "}
                   <span className="studentDetails">
                     {" "}
-                    : <div className="colon" id="colon1">{formData.studentName}</div>
+                    :{" "}
+                    <div className="colon" id="colon1">
+                      {formData.studentName}
+                    </div>
                   </span>
                 </p>
                 <p>
@@ -430,7 +446,7 @@ const StudentForm = () => {
                 <p>
                   <strong>Blood Group </strong>{" "}
                   <span className="studentDetails">
-                    {" "} 
+                    {" "}
                     : <span className="colon">{formData.bloodGroup}</span>
                   </span>
                 </p>
@@ -445,12 +461,20 @@ const StudentForm = () => {
                   <strong>Address </strong>{" "}
                   <span className="studentDetails">
                     {" "}
-                    : <span className="colon" id="colonAddress">{formData.address}</span>
+                    :{" "}
+                    <span className="colon" id="colonAddress">
+                      {formData.address}
+                    </span>
                   </span>
                 </p>
               </div>
             </div>
-            <button className="btn btn-success download" onClick={downloadPreview}>Download</button>
+            <button
+              className="btn btn-success download"
+              onClick={downloadPreview}
+            >
+              Download
+            </button>
           </>
         )}
       </div>
