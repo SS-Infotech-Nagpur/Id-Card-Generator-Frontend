@@ -3,6 +3,8 @@ import axios from "axios";
 import "./SchoolForm.css";
 import { BiArrowBack } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SchoolForm = () => {
   const [formData, setFormData] = useState({
@@ -52,7 +54,7 @@ const SchoolForm = () => {
     try {
       // Send POST request
       const response = await axios.post(
-        "http://192.168.0.139:8080/school/save",
+        "http://192.168.203.14:8080/school/save",
         data,
         {
           headers: {
@@ -60,8 +62,19 @@ const SchoolForm = () => {
           },
         }
       );
+      toast.success("School created successfully", {
+        position: "top-right",
+        autoClose: 1500,
+        theme: "dark",
+      });
       console.log("Success:", response.data);
+
     } catch (error) {
+      toast.error("Try again ! Make sure your internet is connected", {
+        position: "top-right",
+        autoClose: 1500,
+        theme: "dark",
+      });
       console.error(
         "Error:",
         error.response ? error.response.data : error.message
@@ -83,7 +96,7 @@ const SchoolForm = () => {
   return (
     <>
      <button className='btn btn-outline-primary mx-4 px-4 fs-5' onClick={back}><BiArrowBack /></button>
-    <div className="container w-75 mt-5 form">
+    <div className="container w-75 mt-5 form" data-aos="zoom-in">
       <h2>School Registration Form</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
@@ -228,6 +241,7 @@ const SchoolForm = () => {
         </div>
       )}
     </div>
+    <ToastContainer />
     </>
   );
 };

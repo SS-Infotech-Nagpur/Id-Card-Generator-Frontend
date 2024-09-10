@@ -132,7 +132,7 @@ left: 49%;
 }
 .download{
     position: relative;
-    left: 46%;
+    left: 43%;
     margin-top: 1rem;
 }
 #colon1{
@@ -144,12 +144,12 @@ left: 49%;
 }
 .studentDetails #colonAddress {
     display:block;
-    max-width: 125px !important;
+    max-width: 130px !important;
     position: relative;
      left: 0.4rem;
      bottom: 0.55rem;
      line-height: 0.8rem;
-     
+    
 
  }
 #previewStudentName{
@@ -162,6 +162,10 @@ left: 49%;
 
 .padding #colon1{
     line-height: 0.8rem; 
+}
+#webcamToLast{
+    position: relative;
+    right: 20%;
 }
 
 /* Mobile responsiveness */

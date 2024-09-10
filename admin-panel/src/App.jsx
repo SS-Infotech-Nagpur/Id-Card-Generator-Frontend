@@ -4,9 +4,21 @@ import Login from "./components/Login";
 import SchoolForm from "./components/SchoolForm";
 import StudentForm from "./components/StudentForm";
 import PageNotFound from "./components/PageNotFound";
+import { useEffect } from "react";
+import Aos from 'aos';
+import "aos/dist/aos.css"
 
 
 function App() {
+  useEffect(()=>{
+    Aos.init( {
+      offset: 200,
+      duration: 600,
+      easing: 'ease-in-sine',
+      delay: 100,
+    });
+   
+  },[])
   return (
     <>
       <BrowserRouter>

@@ -5,6 +5,8 @@ import "./StudentForm.css";
 import WebCam from "../Webcam/WebCam";
 import { useNavigate } from "react-router-dom";
 import { BiArrowBack } from "react-icons/bi";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const StudentForm = () => {
   const [search, setSearch] = useState("");
@@ -30,6 +32,47 @@ const StudentForm = () => {
   });
   const [selectedSchoolDetail, setSelectedSchoolDetail] = useState({});
   const [studentLength, setStudentLength] = useState("");
+  const [handleAddressLength , setHandleAddressLength] = useState("");
+  const [handleStudentLength , setHandleStudentLength ] = useState("");
+
+  const notify = () => toast("Form Submitted Successfully");
+
+  
+
+  useEffect(() => {
+    if (formData.address.length > 30) {
+      // Update the address to have only the first 38 characters
+      setFormData(prevFormData => ({
+        ...prevFormData,
+        address: formData.address.substring(0, 30)
+        
+      }));
+      setHandleAddressLength("max length of address is 30 character")
+    }
+
+    if (formData.address.length < 30) {
+      setHandleAddressLength("")
+    }
+
+  }, [formData.address]);
+
+  useEffect(() => {
+    if (formData.studentName.length > 18) {
+      // Update the address to have only the first 38 characters
+      setFormData(prevFormData => ({
+        ...prevFormData,
+        studentName: formData.studentName.substring(0, 18)
+        
+      }));
+      setHandleStudentLength("max length of address is 18 character")
+    }
+
+    if (formData.studentName.length < 18) {
+      setHandleStudentLength("")
+    }
+
+  }, [formData.studentName]);
+
 
   const handleWebCamCapture = (image) => {
     // Ensure that the image is a Blob or File
@@ -46,7 +89,7 @@ const StudentForm = () => {
 
   useEffect(() => {
     axios
-      .get("http://192.168.0.139:8080/school/list")
+      .get("http://192.168.203.14:8080/school/list")
       .then((response) => {
         const schools = response.data.map((item) => ({
           schoolName: item.schoolName,
@@ -56,6 +99,11 @@ const StudentForm = () => {
         setFilteredOptions(schools);
       })
       .catch((error) => {
+        toast.error("Try after some time ! Make sure your internet is connected", {
+          position: "top-right",
+          autoClose: 1500,
+          theme: "dark",
+        });
         console.error("Error fetching data:", error);
       });
   }, []);
@@ -86,7 +134,7 @@ const StudentForm = () => {
 
   const fetchSchoolDetails = (schoolId) => {
     axios
-      .get(`http://192.168.0.139:8080/school/id/${schoolId}`)
+      .get(`http://192.168.203.14:8080/school/id/${schoolId}`)
       .then((response) => {
         setSelectedSchoolDetail(response.data);
       })
@@ -107,27 +155,27 @@ const StudentForm = () => {
     // Check if all required fields are filled
     for (let key in formData) {
       if (formData[key] === "" && key !== "photo" && key !== "idCardPhoto") {
-        alert(`${key} is required.`);
+        toast.error(`${key} is required.`); // Use toast.error here
         return;
       }
     }
-
+  
     const data = new FormData();
     for (let key in formData) {
       if (formData[key]) {
         data.append(key, formData[key]);
       }
     }
-
+  
     // Ensure the 'photo' field is added to FormData
     if (webCamImage) {
       // Append the webcam image if it is a Blob or File
       data.append("photo", webCamImage, "webcam_photo.jpg"); // Adjust file name as needed
     }
-
+  
     try {
       const response = await axios.post(
-        "http://192.168.0.139:8080/student/save",
+        "http://192.168.203.14:8080/student/save",
         data,
         {
           headers: {
@@ -136,14 +184,24 @@ const StudentForm = () => {
         }
       );
       console.log("Success:", response.data);
+      toast.success("Form Submitted Successfully", {
+        position: "top-right",
+        autoClose: 1500,
+        theme: "dark",
+      });
     } catch (error) {
+      toast.error("Try again", {
+        position: "top-right",
+        autoClose: 1500,
+        theme: "dark",
+      });
       console.error(
         "Error:",
         error.response ? error.response.data : error.message
       );
     }
   };
-
+  
   const checkPreview = () => {
     setIsPreview(true);
   };
@@ -178,10 +236,11 @@ const StudentForm = () => {
 
   return (
     <>
+       
       <button className="btn btn-outline-primary mx-4 px-4 fs-5" onClick={back}>
-        <BiArrowBack />
+      <BiArrowBack />  
       </button>
-      <div className="form w-75">
+      <div className="form w-75" data-aos="zoom-in">
         <form id="school-form">
           <h2 id="stdHeading">Student Information</h2>
           <br />
@@ -240,6 +299,12 @@ const StudentForm = () => {
             required
           />
           <br />
+          {
+            handleStudentLength && <p 
+             style={{color:"red", fontSize:"18px",fontWeight:"bold"}}
+            >{handleStudentLength}</p>
+          }
+
           <label htmlFor="studetClass">Class Name</label>
           <br />
           <input
@@ -312,7 +377,8 @@ const StudentForm = () => {
           <br />
           <label htmlFor="address">Address</label>
           <br />
-          <textarea
+          <input
+            type="text"
             name="address"
             placeholder="Address"
             value={formData.address}
@@ -323,6 +389,12 @@ const StudentForm = () => {
             required
           />
           <br />
+          {
+            handleAddressLength && <p 
+             style={{color:"red", fontSize:"18px",fontWeight:"bold"}}
+            >{handleAddressLength}</p>
+          }
+          
           <label htmlFor="template">Student Photo</label>
           <br />
           <input
@@ -331,6 +403,7 @@ const StudentForm = () => {
             accept="image/*"
             onChange={handleChange}
             id="template"
+            className="bg-light p-2 rounded"
           />
 
           <br />
@@ -342,9 +415,12 @@ const StudentForm = () => {
             accept="image/*"
             onChange={handleChange}
             id="idCard"
+            className="bg-light p-2 rounded"
           />
           <br />
-          <WebCam getImage={handleWebCamCapture} />
+           <div id="webcamToLast">
+           <WebCam getImage={handleWebCamCapture} />
+           
           <br />
           <button
             type="button"
@@ -355,11 +431,13 @@ const StudentForm = () => {
           </button>
           <button
             type="button"
-            className="btn btn-success my-3"
+            className="btn btn-success my-3 mx-4"
             onClick={handleSubmit}
           >
             Submit
           </button>
+         
+          </div>
         </form>
 
         {selectedSchoolDetail && isPreview && (
@@ -478,6 +556,7 @@ const StudentForm = () => {
           </>
         )}
       </div>
+      <ToastContainer />
     </>
   );
 };

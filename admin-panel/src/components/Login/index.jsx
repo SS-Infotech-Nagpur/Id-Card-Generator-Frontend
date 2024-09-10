@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import '../Login/Style.css';
 import { useNavigate } from 'react-router-dom';
 import { BiArrowBack } from "react-icons/bi";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
 
@@ -36,6 +38,11 @@ const Login = () => {
     navigate("/schoolForm")
   }
   else{
+    toast.error("username and password not match", {
+      position: "top-right",
+      autoClose: 1500,
+      theme: "dark",
+    });
     setError("username and password not match")
   }
   
@@ -46,7 +53,7 @@ const Login = () => {
     <>
     <button className='btn btn-outline-primary mx-4 px-4 fs-5' onClick={back}><BiArrowBack /></button>
         <div className="login-card-body">
-        <div className="row justify-content-center align-items-center min-vh-100">
+        <div className="row justify-content-center align-items-center min-vh-100" data-aos="fade-up">
             <div className="col-md-4 col-sm-6">
                 <div className="card">
                     <div className="card-body">
@@ -70,6 +77,7 @@ const Login = () => {
             </div>
         </div>
     </div>
+    <ToastContainer />
     </>
   )
 }

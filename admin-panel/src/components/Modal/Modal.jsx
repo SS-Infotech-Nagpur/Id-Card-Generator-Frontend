@@ -7,7 +7,7 @@ const Modal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="modal fade show d-block" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div className="modal fade show d-block" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-aos="fade-down">
       <div className="modal-dialog" role="document">
         <div className="modal-content">
           
