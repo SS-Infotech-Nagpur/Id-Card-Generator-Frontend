@@ -14,7 +14,7 @@ const Dashboard = () => {
     <>
       <Navbar />
       <div className="container2">
-        <div className="left">
+        <div className="left" data-aos="fade-right">
           <h2>
             MAKING ID CARDS HAS NEVER
             <br /> BEEN EASIER!
@@ -27,7 +27,7 @@ const Dashboard = () => {
             <b>Get Started</b>
           </button>
         </div>
-        <div className="right">
+        <div className="right" data-aos="fade-left">
           <img src="src/images/img1.jpg" alt="ID Badge Maker" />
         </div>
       </div>

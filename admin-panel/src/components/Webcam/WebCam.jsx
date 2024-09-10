@@ -24,16 +24,16 @@ const WebCam = ({ getImage }) => {
             <button 
                 onClick={handleCamera} 
                 className='btn btn-danger'
-                type='button' // Prevent form submission
+                type='button'
                 style={{ display: "flex" }}
             >
                 {camera ? 'Turn Off Camera' : 'Turn On Camera'}
             </button>
             {camera && (
                 <>
-                    <Webcam 
+                    <Webcam
                         audio={false} 
-                        ref={webcamRef} 
+                        ref={webcamRef}
                         screenshotFormat="image/jpeg"
                         id='cameraWindow'
                     />
