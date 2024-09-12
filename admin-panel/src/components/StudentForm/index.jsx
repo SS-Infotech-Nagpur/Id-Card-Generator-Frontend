@@ -27,6 +27,7 @@ const StudentForm = () => {
     bloodGroup: "",
     mobileNumber: "",
     address: "",
+    rollNo:"",
     photo: null,
     idCardPhoto: null,
   });
@@ -389,6 +390,20 @@ const StudentForm = () => {
             required
           />
           <br />
+          <label htmlFor="rollNo">Roll Number</label>
+          <br />
+          <input
+            type="number"
+            name="rollNo"
+            placeholder="Roll Number"
+            value={formData.rollNo}
+            onChange={handleChange}
+            aria-label="Roll Number"
+            className="rounded p-1"
+            id="rollNo"
+            required
+          />
+          <br />
           {
             handleAddressLength && <p 
              style={{color:"red", fontSize:"18px",fontWeight:"bold"}}
@@ -501,7 +516,7 @@ const StudentForm = () => {
                   </span>
                 </p>
                 <p>
-                  <strong>Class Name </strong>{" "}
+                  <strong>Class </strong>{" "}
                   <span className="studentDetails">
                     {" "}
                     : <span className="colon">{formData.className}</span>
@@ -512,6 +527,13 @@ const StudentForm = () => {
                   <span className="studentDetails">
                     {" "}
                     : <span className="colon">{formData.section}</span>
+                  </span>
+                </p>
+                <p>
+                  <strong>Roll Number </strong>{" "}
+                  <span className="studentDetails">
+                    {" "}
+                    : <span className="colon">{formData.rollNo}</span>
                   </span>
                 </p>
                 <p>
