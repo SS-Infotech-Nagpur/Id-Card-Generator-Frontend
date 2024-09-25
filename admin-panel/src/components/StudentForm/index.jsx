@@ -90,7 +90,7 @@ const StudentForm = () => {
 
   useEffect(() => {
     axios
-      .get("http://192.168.203.14:8080/school/list")
+      .get("http://192.168.0.113:8080/school/list")
       .then((response) => {
         const schools = response.data.map((item) => ({
           schoolName: item.schoolName,
@@ -135,7 +135,7 @@ const StudentForm = () => {
 
   const fetchSchoolDetails = (schoolId) => {
     axios
-      .get(`http://192.168.203.14:8080/school/id/${schoolId}`)
+      .get(`http://192.168.0.113:8080/school/id/${schoolId}`)
       .then((response) => {
         setSelectedSchoolDetail(response.data);
       })
@@ -176,7 +176,7 @@ const StudentForm = () => {
   
     try {
       const response = await axios.post(
-        "http://192.168.203.14:8080/student/save",
+        "http://192.168.0.113:8080/student/save",
         data,
         {
           headers: {
