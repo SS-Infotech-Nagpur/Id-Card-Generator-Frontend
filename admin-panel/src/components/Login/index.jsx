@@ -13,8 +13,8 @@ const Login = () => {
       }
 
     const userData={
-        userName:"aamil",
-        password:"malik"
+        userName:"user",
+        password:"pass"
     }
 
     const [formData, setFormData] = useState({

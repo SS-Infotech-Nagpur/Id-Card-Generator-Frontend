@@ -54,7 +54,7 @@ const SchoolForm = () => {
     try {
       // Send POST request
       const response = await axios.post(
-        "http://192.168.203.14:8080/school/save",
+        "http://192.168.0.113:8080/school/save",
         data,
         {
           headers: {

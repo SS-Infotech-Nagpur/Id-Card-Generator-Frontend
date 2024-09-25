@@ -27,6 +27,7 @@ const StudentForm = () => {
     bloodGroup: "",
     mobileNumber: "",
     address: "",
+    rollNo:"",
     photo: null,
     idCardPhoto: null,
   });
@@ -89,7 +90,7 @@ const StudentForm = () => {
 
   useEffect(() => {
     axios
-      .get("http://192.168.203.14:8080/school/list")
+      .get("http://192.168.0.113:8080/school/list")
       .then((response) => {
         const schools = response.data.map((item) => ({
           schoolName: item.schoolName,
@@ -134,7 +135,7 @@ const StudentForm = () => {
 
   const fetchSchoolDetails = (schoolId) => {
     axios
-      .get(`http://192.168.203.14:8080/school/id/${schoolId}`)
+      .get(`http://192.168.0.113:8080/school/id/${schoolId}`)
       .then((response) => {
         setSelectedSchoolDetail(response.data);
       })
@@ -175,7 +176,7 @@ const StudentForm = () => {
   
     try {
       const response = await axios.post(
-        "http://192.168.203.14:8080/student/save",
+        "http://192.168.0.113:8080/student/save",
         data,
         {
           headers: {
@@ -389,6 +390,20 @@ const StudentForm = () => {
             required
           />
           <br />
+          <label htmlFor="rollNo">Roll Number</label>
+          <br />
+          <input
+            type="number"
+            name="rollNo"
+            placeholder="Roll Number"
+            value={formData.rollNo}
+            onChange={handleChange}
+            aria-label="Roll Number"
+            className="rounded p-1"
+            id="rollNo"
+            required
+          />
+          <br />
           {
             handleAddressLength && <p 
              style={{color:"red", fontSize:"18px",fontWeight:"bold"}}
@@ -501,7 +516,7 @@ const StudentForm = () => {
                   </span>
                 </p>
                 <p>
-                  <strong>Class Name </strong>{" "}
+                  <strong>Class </strong>{" "}
                   <span className="studentDetails">
                     {" "}
                     : <span className="colon">{formData.className}</span>
@@ -512,6 +527,13 @@ const StudentForm = () => {
                   <span className="studentDetails">
                     {" "}
                     : <span className="colon">{formData.section}</span>
+                  </span>
+                </p>
+                <p>
+                  <strong>Roll Number </strong>{" "}
+                  <span className="studentDetails">
+                    {" "}
+                    : <span className="colon">{formData.rollNo}</span>
                   </span>
                 </p>
                 <p>
