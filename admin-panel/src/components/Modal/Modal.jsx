@@ -1,4 +1,3 @@
-// src/Modal/Modal.js
 import React from 'react';
 import "./Modal.css"
 import { Link } from 'react-router-dom';
@@ -7,7 +6,7 @@ const Modal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="modal fade show d-block" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div className="modal fade show d-block" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-aos="fade-down">
       <div className="modal-dialog" role="document">
         <div className="modal-content">
           
