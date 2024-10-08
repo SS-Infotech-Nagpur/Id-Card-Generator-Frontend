@@ -570,7 +570,7 @@ const StudentForm = () => {
               </div>
             </div>
             <button
-              className="btn btn-success download"
+              className="btn btn-success download mx-3"
               onClick={downloadPreview}
             >
               Download
